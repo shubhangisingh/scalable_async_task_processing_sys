@@ -19,7 +19,8 @@ RSpec.describe Job, type: :model do
 
   it "processes job and updates status" do
     job = Job.create(task: "test")
-
+   ## wait for the job to be processed
+   
     ProcessJob.perform_now(job.id)
 
     expect(job.reload.status).to eq("completed")
