@@ -1,0 +1,11 @@
+
+create tasks by sending a POST request to the /jobs/ endpoint with a JSON body containing the task details.
+
+curl -X POST http://localhost:3000/jobs/ \
+  -H "Content-Type: application/json" \
+  -d '{"task":"Generate Monthly Report"}'
+
+
+get job details by sending a GET request to the /jobs/{job_id}/ endpoint.
+
+curl --location --request GET 'http://localhost:3000/jobs/6'
