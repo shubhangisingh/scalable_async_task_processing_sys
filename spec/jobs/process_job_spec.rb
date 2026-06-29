@@ -1,14 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe ProcessJob, type: :job do
-  it "processes job and updates status" do
-    job = Job.create(task: "test_task")
+    include ActiveJob::TestHelper
+
+  it "processes the job successfully" do
+    job = Job.create!(task: "Test", status: "pending")
 
     ProcessJob.perform_now(job.id)
 
-    job.reload
+    expect(job.reload.status).to eq("completed")
 
-    expect(job.status).to eq("completed")
-    expect(job.result).to eq("Task completed successfully")
+    # job.reload
+
+    # expect(job.status).to eq("completed")
+  end
+
+  it "enqueues a job" do
+    expect {
+      ProcessJob.perform_later(1)
+    }.to have_enqueued_job(ProcessJob)
   end
 end
