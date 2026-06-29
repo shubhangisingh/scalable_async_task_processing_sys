@@ -6,12 +6,22 @@ files:
     destination: /home/ubuntu/scalable_async_task_processing_sys
 
 hooks:
-  AfterInstall:
+  BeforeInstall:
     - location: scripts/install_dependencies.sh
+      timeout: 300
+      runas: ubuntu
+
+  ApplicationStop:
+    - location: scripts/stop_server.sh
       timeout: 300
       runas: ubuntu
 
   ApplicationStart:
     - location: scripts/start_server.sh
+      timeout: 300
+      runas: ubuntu
+
+  ValidateService:
+    - location: scripts/validate_service.sh
       timeout: 300
       runas: ubuntu
