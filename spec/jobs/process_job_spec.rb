@@ -11,7 +11,6 @@ RSpec.describe ProcessJob, type: :job do
     expect(job.reload.status).to eq("completed")
 
     # job.reload
-
     # expect(job.status).to eq("completed")
   end
 
