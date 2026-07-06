@@ -5,14 +5,22 @@ phases:
     runtime-versions:
       ruby: 3.3.0
     commands:
-      - bundle install
+      - bundle config set path vendor/bundle
+      - bundle install --jobs 4 --retry 3
 
-  build:
+  pre_build:
     commands:
       - bundle exec rails db:create RAILS_ENV=test
       - bundle exec rails db:migrate RAILS_ENV=test
+
+  build:
+    commands:
       - bundle exec rspec
 
 artifacts:
   files:
     - '**/*'
+
+cache:
+  paths:
+    - vendor/bundle/**/*
